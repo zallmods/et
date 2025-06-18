@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DARKXNET MAFIA | Elite Cyber Team</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%2300ff00'/><stop offset='100%' stop-color='%23ff0000'/></linearGradient></defs><rect fill='%23000' width='100' height='100'/><text x='50' y='35' text-anchor='middle' font-family='monospace' font-size='16' fill='url(%23grad)' font-weight='bold'>DXN</text><text x='50' y='55' text-anchor='middle' font-family='monospace' font-size='12' fill='%2300ff00'>MAFIA</text><circle cx='20' cy='80' r='3' fill='%23ff0000'/><circle cx='50' cy='80' r='3' fill='%2300ff00'/><circle cx='80' cy='80' r='3' fill='%23ff0000'/></svg>">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #00ff41;
+            --secondary-color: #ff0040;
+            --accent-color: #0066ff;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #050505;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --palestine-red: #ce1126;
+            --palestine-green: #00732f;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,487 +28,664 @@
         }
 
         body {
-            font-family: 'Courier New', monospace;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
-            color: #00ff00;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 35%, var(--bg-dark) 100%);
+            color: var(--text-primary);
             overflow-x: hidden;
-            min-height: 100vh;
+            scroll-behavior: smooth;
+            line-height: 1.6;
         }
 
-        /* Matrix Background Effect */
-        .matrix {
+        /* Enhanced Glass Morphism */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+        }
+
+        .glass-strong {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+        }
+
+        /* Animated Background */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+            opacity: 0.1;
+        }
+
+        .shape:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            background: var(--primary-color);
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            background: var(--secondary-color);
+            right: 15%;
+            animation-delay: -8s;
+        }
+
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-color);
+            left: 60%;
+            animation-delay: -15s;
         }
 
         /* Navigation */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid #00ff00;
+            width: 90%;
+            max-width: 1200px;
+            padding: 1rem 2rem;
         }
 
         .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff0000;
-            text-shadow: 0 0 10px #ff0000;
-            animation: pulse 2s infinite;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .nav-links {
+        .nav-menu {
             display: flex;
             list-style: none;
             gap: 2rem;
         }
 
-        .nav-links a {
-            color: #00ff00;
+        .nav-menu a {
+            color: var(--text-secondary);
             text-decoration: none;
-            transition: all 0.3s ease;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
         }
 
-        .nav-links a:hover {
-            color: #ff0000;
-            text-shadow: 0 0 5px #ff0000;
+        .nav-menu a:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
         }
 
-        .nav-links a::after {
+        .nav-menu a::before {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
+            bottom: 0;
+            left: 50%;
             width: 0;
             height: 2px;
-            background: #ff0000;
-            transition: width 0.3s ease;
+            background: var(--primary-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-menu a:hover::before {
+            width: 80%;
         }
 
-        /* Mobile Menu */
-        .mobile-menu {
+        /* Mobile Navigation */
+        .mobile-toggle {
             display: none;
             flex-direction: column;
             cursor: pointer;
+            padding: 0.5rem;
         }
 
-        .mobile-menu span {
+        .mobile-toggle span {
             width: 25px;
-            height: 3px;
-            background: #00ff00;
+            height: 2px;
+            background: var(--primary-color);
             margin: 3px 0;
             transition: 0.3s;
+            border-radius: 2px;
         }
 
         .mobile-nav {
             display: none;
             position: fixed;
-            top: 70px;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
             z-index: 999;
+            padding: 1.5rem;
         }
 
         .mobile-nav.active {
             display: block;
-            animation: slideDown 0.3s ease;
+            animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .mobile-nav a {
             display: block;
-            color: #00ff00;
+            color: var(--text-secondary);
             text-decoration: none;
-            padding: 1rem 2rem;
-            border-bottom: 1px solid #333;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 12px;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         .mobile-nav a:hover {
-            background: rgba(255, 0, 0, 0.1);
-            color: #ff0000;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            padding: 2rem;
             position: relative;
         }
 
-        .hero-content h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px #ff0000;
-            animation: glow 2s ease-in-out infinite alternate;
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
         }
 
-        .hero-content p {
-            font-size: 1.5rem;
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            border-radius: 50px;
+            color: var(--primary-color);
+            font-size: 0.9rem;
             margin-bottom: 2rem;
-            color: #00ff00;
+            animation: pulse 2s infinite;
         }
 
-        .palestine-flag {
-            display: inline-block;
-            margin: 0 10px;
-            animation: wave 1s ease-in-out infinite;
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
         }
 
-        /* Team Section */
-        .team {
-            padding: 5rem 2rem;
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--bg-dark);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 255, 65, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+            border: 2px solid var(--glass-border);
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-bg);
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .container {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .team h2 {
+        .section-header {
             text-align: center;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            color: #ff0000;
-            text-shadow: 0 0 15px #ff0000;
+            margin-bottom: 5rem;
         }
 
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Team Section */
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-top: 3rem;
         }
 
-        .team-member {
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            padding: 2rem;
+        .team-card {
+            padding: 2.5rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .team-member::before {
+        .team-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
         }
 
-        .team-member:hover::before {
-            animation: scan 2s infinite;
-            opacity: 1;
+        .team-card:hover::before {
+            opacity: 0.05;
         }
 
-        .team-member:hover {
+        .team-card:hover {
             transform: translateY(-10px);
-            border-color: #ff0000;
-            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
         }
 
         .member-avatar {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            margin: 0 auto 1rem;
-            border: 3px solid #00ff00;
+            margin: 0 auto 1.5rem;
             overflow: hidden;
+            border: 3px solid var(--primary-color);
             position: relative;
+            background: var(--glass-bg);
         }
 
         .member-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .team-card:hover .member-avatar img {
+            transform: scale(1.1);
         }
 
         .member-name {
             font-size: 1.5rem;
-            color: #ff0000;
+            font-weight: 700;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px #ff0000;
+            color: var(--text-primary);
         }
 
         .member-role {
-            color: #00ff00;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
         }
 
-        .member-telegram {
-            display: inline-block;
-            background: #0088cc;
+        .member-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #0088cc, #006bb3);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
             text-decoration: none;
+            border-radius: 25px;
             transition: all 0.3s ease;
+            font-weight: 500;
         }
 
-        .member-telegram:hover {
-            background: #006699;
-            transform: scale(1.05);
+        .member-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 136, 204, 0.3);
         }
 
-        /* Palestine Support Section */
+        /* Palestine Section */
         .palestine {
-            background: linear-gradient(135deg, #000, #2d5016, #000);
-            padding: 5rem 2rem;
-            text-align: center;
-            border-top: 2px solid #00ff00;
-            border-bottom: 2px solid #ff0000;
+            background: linear-gradient(135deg, var(--bg-darker), #1a1a2e);
+            position: relative;
+            overflow: hidden;
         }
 
-        .palestine h2 {
-            font-size: 3rem;
-            color: #ff0000;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 20px #ff0000;
+        .palestine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300ff41' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: 0;
         }
 
         .palestine-content {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #00ff00;
+            position: relative;
+            z-index: 2;
+            text-align: center;
         }
 
-        .flag-animation {
+        .palestine-flag {
             display: flex;
             justify-content: center;
             margin: 2rem 0;
+            gap: 0;
         }
 
         .flag-stripe {
-            width: 60px;
-            height: 20px;
-            display: inline-block;
-            animation: flagWave 2s ease-in-out infinite;
+            width: 80px;
+            height: 15px;
+            animation: flagWave 3s ease-in-out infinite;
         }
 
         .flag-black { background: #000; }
         .flag-white { background: #fff; }
-        .flag-green { background: #00732f; }
-        .flag-red { background: #ce1126; }
+        .flag-green { background: var(--palestine-green); }
+        .flag-red { background: var(--palestine-red); }
+
+        .palestine-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+        }
+
+        .palestine-message {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--glass-bg);
+            border: 1px solid rgba(206, 17, 38, 0.3);
+            border-radius: 20px;
+            color: var(--palestine-red);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
 
         /* Features Section */
-        .features {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            color: #ff0000;
-            text-shadow: 0 0 15px #ff0000;
-        }
-
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
         .feature-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff00;
-            border-radius: 10px;
-            padding: 2rem;
+            padding: 2.5rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            group: feature;
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
-            border-color: #ff0000;
-            box-shadow: 0 5px 20px rgba(0, 255, 0, 0.2);
         }
 
         .feature-icon {
-            font-size: 3rem;
-            color: #00ff00;
-            margin-bottom: 1rem;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--bg-dark);
+            transition: all 0.4s ease;
         }
 
         .feature-card:hover .feature-icon {
-            color: #ff0000;
-            animation: spin 1s ease-in-out;
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
         /* Contact Section */
         .contact {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 5rem 2rem;
+            background: var(--bg-darker);
+        }
+
+        .contact-content {
             text-align: center;
-            border-top: 2px solid #00ff00;
         }
 
-        .contact h2 {
-            font-size: 3rem;
-            color: #ff0000;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 15px #ff0000;
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
         }
 
-        .telegram-link {
-            display: inline-block;
-            background: linear-gradient(45deg, #0088cc, #006699);
+        .contact-btn {
+            padding: 1.25rem 2.5rem;
+            background: linear-gradient(135deg, #0088cc, #006bb3);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
             text-decoration: none;
-            font-size: 1.2rem;
-            margin: 1rem;
-            transition: all 0.3s ease;
-            border: 2px solid #0088cc;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
-        .telegram-link:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px #0088cc;
-            border-color: #00ff00;
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 136, 204, 0.4);
         }
 
         /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(-60px) rotate(240deg); }
+        }
+
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 20px #ff0000; }
-            to { text-shadow: 0 0 30px #ff0000, 0 0 40px #ff0000; }
-        }
-
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(10deg); }
-            75% { transform: rotate(-10deg); }
-        }
-
-        @keyframes scan {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        @keyframes slideDown {
+            from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
         }
 
         @keyframes flagWave {
             0%, 100% { transform: scaleY(1); }
-            50% { transform: scaleY(1.2); }
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            50% { transform: scaleY(1.1); }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
+            .nav-menu {
                 display: none;
             }
 
-            .mobile-menu {
+            .mobile-toggle {
                 display: flex;
             }
 
-            .hero-content h1 {
-                font-size: 2.5rem;
+            .team-grid {
+                grid-template-columns: 1fr;
             }
 
-            .hero-content p {
-                font-size: 1.2rem;
+            .features-grid {
+                grid-template-columns: 1fr;
             }
 
-            .team h2, .features h2, .contact h2, .palestine h2 {
-                font-size: 2rem;
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
 
-            .nav-container {
-                padding: 0 1rem;
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
             }
 
-            .team, .features {
-                padding: 3rem 1rem;
+            .section {
+                padding: 5rem 1rem;
+            }
+
+            nav {
+                width: 95%;
+                padding: 1rem 1.5rem;
             }
         }
 
-        /* Scrollbar Styling */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #000;
+            background: var(--bg-darker);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #00ff00;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #ff0000;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
         }
     </style>
 </head>
 <body>
-    <!-- Matrix Background -->
-    <canvas class="matrix" id="matrix"></canvas>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </div>
 
     <!-- Navigation -->
-    <nav>
+    <nav class="glass">
         <div class="nav-container">
             <div class="logo">DARKXNET MAFIA</div>
-            <ul class="nav-links">
+            <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#team">Team</a></li>
                 <li><a href="#palestine">Palestine</a></li>
                 <li><a href="#features">Features</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="mobile-menu" onclick="toggleMobileNav()">
+            <div class="mobile-toggle" onclick="toggleMobileNav()">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -502,7 +694,7 @@
     </nav>
 
     <!-- Mobile Navigation -->
-    <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav glass-strong" id="mobileNav">
         <a href="#home" onclick="closeMobileNav()">Home</a>
         <a href="#team" onclick="closeMobileNav()">Team</a>
         <a href="#palestine" onclick="closeMobileNav()">Palestine</a>
@@ -513,161 +705,217 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-shield-alt"></i>
+                Elite Cyber Operations
+            </div>
             <h1>DARKXNET MAFIA</h1>
-            <p>Elite Cyber Team <span class="palestine-flag">🇵🇸</span> Supporting Palestine <span class="palestine-flag">🇵🇸</span></p>
-            <p style="font-size: 1rem; color: #00ff00;">We stand with Palestine in their fight for freedom and justice</p>
+            <p class="hero-subtitle">Advanced cybersecurity team committed to digital freedom and supporting Palestine in their fight for justice and liberation.</p>
+            <div class="cta-buttons">
+                <a href="#team" class="btn-primary">
+                    <i class="fas fa-users"></i>
+                    Meet Our Team
+                </a>
+                <a href="https://t.me/darkxnetmafia" class="btn-secondary" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                    Join Telegram
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Team Section -->
-    <section class="team" id="team">
-        <h2>Our Elite Team</h2>
-        <div class="team-grid">
-            <div class="team-member">
-                <div class="member-avatar">
-                    <img src="https://filebin.net/zksga7ktckidye91/photo_2025-06-18_22-28-54.jpg" alt="Team Avatar" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23000%22 width=%22100%22 height=%22100%22/><text y=%2250%22 x=%2250%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%2300ff00%22 font-family=%22monospace%22>DARK</text></svg>'">
-                </div>
-                <div class="member-name">Tanjiro1337</div>
-                <div class="member-role">Owner / Leader</div>
-                <a href="https://t.me/mistertanjiro" class="member-telegram" target="_blank">
-                    <i class="fab fa-telegram"></i> @mistertanjiro
-                </a>
+    <section class="section" id="team">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Elite Team</h2>
+                <p class="section-subtitle">Meet the brilliant minds behind DARKXNET MAFIA, dedicated to cybersecurity excellence and digital activism.</p>
             </div>
-            <div class="team-member">
-                <div class="member-avatar">
-                    <img src="https://filebin.net/zksga7ktckidye91/photo_2025-06-18_22-28-54.jpg" alt="Team Avatar" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%23000%22 width=%22100%22 height=%22100%22/><text y=%2250%22 x=%2250%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23ff0000%22 font-family=%22monospace%22>CEO</text></svg>'">
+            <div class="team-grid">
+                <div class="team-card glass-strong">
+                    <div class="member-avatar">
+                        <img src="https://i.pinimg.com/736x/8f/7c/af/8f7cafe2f31f2e32a17305d59f166bdc.jpg" alt="Tanjiro1337" loading="lazy">
+                    </div>
+                    <h3 class="member-name">Tanjiro1337</h3>
+                    <p class="member-role">Owner / Leader</p>
+                    <a href="https://t.me/mistertanjiro" class="member-contact" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                        @mistertanjiro
+                    </a>
                 </div>
-                <div class="member-name">Mr. Nevil</div>
-                <div class="member-role">Chief Executive Officer</div>
-                <a href="https://t.me/Anonimtraser" class="member-telegram" target="_blank">
-                    <i class="fab fa-telegram"></i> @Anonimtraser
-                </a>
+                <div class="team-card glass-strong">
+                    <div class="member-avatar">
+                        <img src="https://filebin.net/w3250mt0s3mk6yzq/photo_2025-06-18_22-42-21.jpg" alt="Mr. Nevil" loading="lazy">
+                    </div>
+                    <h3 class="member-name">Mr. Nevil</h3>
+                    <p class="member-role">Chief Executive Officer</p>
+                    <a href="https://t.me/Anonimtraser" class="member-contact" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                        @Anonimtraser
+                    </a>
+                </div>
+                <div class="team-card glass-strong">
+                    <div class="member-avatar">
+                        <img src="https://i.pinimg.com/736x/9c/85/45/9c8545e492ad72554afdfa70717d8dd0.jpg" alt="Okta" loading="lazy">
+                    </div>
+                    <h3 class="member-name">Okta</h3>
+                    <p class="member-role">Infiltration Specialist</p>
+                    <a href="https://t.me/vpsvnp" class="member-contact" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                        @vpsvnp
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Palestine Support Section -->
-    <section class="palestine" id="palestine">
-        <h2>WE STAND WITH PALESTINE 🇵🇸</h2>
-        <div class="flag-animation">
-            <div class="flag-stripe flag-black"></div>
-            <div class="flag-stripe flag-white"></div>
-            <div class="flag-stripe flag-green"></div>
-            <div class="flag-stripe flag-red"></div>
-        </div>
-        <div class="palestine-content">
-            <p>DARKXNET MAFIA stands in solidarity with the Palestinian people in their struggle for freedom, justice, and human rights. We believe in the right of all people to live with dignity and self-determination.</p>
-            <p style="margin-top: 1rem; color: #ff0000; font-weight: bold;">FREE PALESTINE 🇵🇸 من النهر إلى البحر فلسطين ستتحرر</p>
+    <!-- Palestine Section -->
+    <section class="section palestine" id="palestine">
+        <div class="container">
+            <div class="palestine-content">
+                <h2 class="section-title">🇵🇸 FREE PALESTINE 🇵🇸</h2>
+                <div class="palestine-flag">
+                    <div class="flag-stripe flag-black"></div>
+                    <div class="flag-stripe flag-white"></div>
+                    <div class="flag-stripe flag-green"></div>
+                    <div class="flag-stripe flag-red"></div>
+                </div>
+                <div class="palestine-text">
+                    <p>DARKXNET MAFIA stands in unwavering solidarity with the Palestinian people in their struggle for freedom, justice, and human dignity. We believe in the fundamental right of all people to live with self-determination and peace.</p>
+                </div>
+                <div class="palestine-message glass">
+                    <strong>من النهر إلى البحر فلسطين ستتحرر</strong><br>
+                    From the river to the sea, Palestine will be free
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features" id="features">
-        <h2>Our Capabilities</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>Cyber Security</h3>
-                <p>Advanced security protocols and penetration testing</p>
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Capabilities</h2>
+                <p class="section-subtitle">Advanced cybersecurity services and digital activism tools for a free and secure internet.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-code"></i></div>
-                <h3>Development</h3>
-                <p>Custom software and web application development</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-user-secret"></i></div>
-                <h3>Privacy</h3>
-                <p>Anonymous operations and secure communications</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-network-wired"></i></div>
-                <h3>Networking</h3>
-                <p>Advanced network infrastructure and protocols</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-eye"></i></div>
-                <h3>Intelligence</h3>
-                <p>Information gathering and analysis capabilities</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon"><i class="fas fa-fist-raised"></i></div>
-                <h3>Activism</h3>
-                <p>Digital activism for Palestine and human rights</p>
+            <div class="features-grid">
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-virus"></i>
+                    </div>
+                    <h3 class="feature-title">Cyber Defense</h3>
+                    <p class="feature-description">Advanced threat detection, penetration testing, and security infrastructure development.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="feature-title">Development</h3>
+                    <p class="feature-description">Custom software solutions, web applications, and secure communication platforms.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3 class="feature-title">Privacy Protection</h3>
+                    <p class="feature-description">Anonymous operations, encrypted communications, and digital privacy consulting.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="feature-title">Network Security</h3>
+                    <p class="feature-description">Infrastructure security, network monitoring, and advanced protocol implementation.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="feature-title">Intelligence</h3>
+                    <p class="feature-description">Information gathering, threat intelligence, and security research capabilities.</p>
+                </div>
+                <div class="feature-card glass">
+                    <div class="feature-icon">
+                        <i class="fas fa-fist-raised"></i>
+</div>
+                    <h3 class="feature-title">Digital Activism</h3>
+                    <p class="feature-description">Supporting freedom movements, human rights advocacy, and digital resistance against oppression.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <h2>Join Our Movement</h2>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #00ff00;">Connect with DARKXNET MAFIA on Telegram</p>
-        <a href="https://t.me/darkxnetmafia" class="telegram-link" target="_blank">
-            <i class="fab fa-telegram"></i> Join Our Telegram
-        </a>
-        <div style="margin-top: 2rem; color: #00ff00;">
-            <p>🇵🇸 Together for Palestine 🇵🇸</p>
-            <p style="margin-top: 1rem; font-size: 0.9rem;">DARKXNET MAFIA - Elite Cyber Operations</p>
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="section-header">
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="section-subtitle">Ready to collaborate? Join our secure communication channels and connect with the DARKXNET MAFIA team.</p>
+                </div>
+                <div class="contact-buttons">
+                    <a href="https://t.me/darkxnetmafia" class="contact-btn" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                        Official Telegram
+                    </a>
+                    <a href="https://t.me/mistertanjiro" class="contact-btn" target="_blank">
+                        <i class="fas fa-crown"></i>
+                        Contact Leader
+                    </a>
+                    <a href="https://t.me/Anonimtraser" class="contact-btn" target="_blank">
+                        <i class="fas fa-user-tie"></i>
+                        Contact CEO
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="section" style="padding: 3rem 2rem; background: var(--bg-darker); border-top: 1px solid var(--glass-border);">
+        <div class="container">
+            <div style="text-align: center;">
+                <div class="logo" style="margin-bottom: 1rem;">DARKXNET MAFIA</div>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Elite cybersecurity team dedicated to digital freedom and Palestinian liberation.</p>
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem;">
+                    <a href="https://t.me/darkxnetmafia" target="_blank" style="color: var(--primary-color); font-size: 1.5rem; transition: all 0.3s ease;">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#palestine" style="color: var(--palestine-red); font-size: 1.5rem; transition: all 0.3s ease;">
+                        <i class="fas fa-flag"></i>
+                    </a>
+                    <a href="#team" style="color: var(--accent-color); font-size: 1.5rem; transition: all 0.3s ease;">
+                        <i class="fas fa-users"></i>
+                    </a>
+                </div>
+                <div style="padding-top: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-secondary); font-size: 0.9rem;">
+                    <p>&copy; 2025 DARKXNET MAFIA. All rights reserved. | Free Palestine 🇵🇸</p>
+                    <p style="margin-top: 0.5rem; font-size: 0.8rem;">This website is for educational and informational purposes only.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
     <script>
-        // Matrix Background Effect
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const matrix = "DARKXNETMAFIA01PALESTINE";
-        const matrixArray = matrix.split("");
-
-        const fontSize = 10;
-        const columns = canvas.width / fontSize;
-
-        const drops = [];
-        for(let x = 0; x < columns; x++) {
-            drops[x] = 1;
-        }
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00ff00';
-            ctx.font = fontSize + 'px monospace';
-
-            for(let i = 0; i < drops.length; i++) {
-                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-
-        setInterval(drawMatrix, 35);
-
-        // Resize canvas on window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Mobile Navigation
+        // Mobile Navigation Toggle
         function toggleMobileNav() {
             const mobileNav = document.getElementById('mobileNav');
+            const toggle = document.querySelector('.mobile-toggle');
+            
             mobileNav.classList.toggle('active');
+            toggle.classList.toggle('active');
         }
 
         function closeMobileNav() {
             const mobileNav = document.getElementById('mobileNav');
+            const toggle = document.querySelector('.mobile-toggle');
+            
             mobileNav.classList.remove('active');
+            toggle.classList.remove('active');
         }
 
-        // Smooth Scrolling
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -685,34 +933,146 @@
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 100) {
-                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+                nav.style.background = 'rgba(255, 255, 255, 0.1)';
+                nav.style.backdropFilter = 'blur(30px)';
             } else {
-                nav.style.background = 'rgba(0, 0, 0, 0.9)';
+                nav.style.background = 'rgba(255, 255, 255, 0.05)';
+                nav.style.backdropFilter = 'blur(20px)';
             }
         });
 
-        // Add typing effect to hero text
-        function typeWriter(element, text, speed) {
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const animateElements = document.querySelectorAll('.team-card, .feature-card, .contact-btn');
+            
+            animateElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                observer.observe(el);
+            });
+        });
+
+        // Typewriter effect for hero title
+        function typeWriter(element, text, speed = 100) {
             let i = 0;
             element.innerHTML = '';
-            function typing() {
+            
+            function type() {
                 if (i < text.length) {
                     element.innerHTML += text.charAt(i);
                     i++;
-                    setTimeout(typing, speed);
+                    setTimeout(type, speed);
                 }
             }
-            typing();
+            type();
         }
 
-        // Initialize typing effect when page loads
-        window.addEventListener('load', () => {
-            const heroTitle = document.querySelector('.hero-content h1');
+        // Initialize typewriter effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroTitle = document.querySelector('.hero h1');
             if (heroTitle) {
                 const originalText = heroTitle.textContent;
-                typeWriter(heroTitle, originalText, 100);
+                setTimeout(() => {
+                    typeWriter(heroTitle, originalText, 150);
+                }, 1000);
             }
         });
+
+        // Palestine flag animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const flagStripes = document.querySelectorAll('.flag-stripe');
+            flagStripes.forEach((stripe, index) => {
+                stripe.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+
+        // Dynamic background particles
+        function createParticles() {
+            const container = document.querySelector('.floating-shapes');
+            
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'shape';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        document.addEventListener('DOMContentLoaded', createParticles);
+
+        // Add hover effects to contact buttons
+        document.querySelectorAll('.contact-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click animation to buttons
+        document.querySelectorAll('.btn-primary, .btn-secondary, .contact-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
